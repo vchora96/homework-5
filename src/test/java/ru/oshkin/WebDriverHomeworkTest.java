@@ -3,9 +3,9 @@ package ru.oshkin;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
@@ -17,19 +17,21 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.String.format;
-import static org.junit.Assert.assertEquals;
 
-public class WebDriverHomework {
+import static org.junit.jupiter.api.Assertions.*;
+
+
+public class WebDriverHomeworkTest {
     private WebDriver driver;
-    private static final Logger logger = LogManager.getLogger(WebDriverHomework.class.getName());
+    private static final Logger logger = LogManager.getLogger(WebDriverHomeworkTest.class.getName());
 
-    @Before
+    @BeforeEach
     public void startUp() {
         WebDriverManager.chromedriver().setup();
         logger.info("Драйвер поднялся");
     }
 
-    @After
+    @AfterEach
     public void finish() {
         if (driver != null) {
             driver.quit();
@@ -50,7 +52,8 @@ public class WebDriverHomework {
         input.sendKeys("ОТУС");
         input.submit();
 
-        WebElement item = driver.findElement(By.xpath("//div[contains(@class,'results_links_deep')][1]/div/h2/a"));
+        WebElement item = driver.findElement(By.xpath("//a[@href ='https://otus.ru/']/child::span[contains(@class," +
+                "'EKtkFWMYpwzMKOYr0GYm LQVY1Jpkk8nyJ6HBWKAk')]"));
         String text = item.getText();
         assertEquals("Онлайн‑курсы для профессионалов, дистанционное обучение ...", text);
     }
@@ -63,9 +66,9 @@ public class WebDriverHomework {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         logger.info("Открыли браузер в режиме киоска");
 
-        String s = "https://demo.w3layouts.com/demos_new/template_demo/03-10-2020/photoflash-liberty-demo_Free" +
+        String link = "https://demo.w3layouts.com/demos_new/template_demo/03-10-2020/photoflash-liberty-demo_Free" +
                 "/685659620/web/index.html?_ga=2.181802926.889871791.1632394818-2083132868.1632394818 ";
-        driver.get(s);
+        driver.get(link);
         logger.info("Перешли по ссылке");
 
         WebElement closeVideo = driver.findElement(By.xpath("//*[@id='vdo_ai_cross']"));
@@ -84,8 +87,8 @@ public class WebDriverHomework {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-        String s = "https://otus.ru";
-        driver.get(s);
+        String link = "https://otus.ru";
+        driver.get(link);
         logger.info("Перешли по ссылке");
 
         WebElement button1 = driver.findElement(By.xpath("//button[@data-modal-id='new-log-reg']"));
