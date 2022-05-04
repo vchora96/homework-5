@@ -52,8 +52,7 @@ public class WebDriverHomeworkTest {
         input.sendKeys("ОТУС");
         input.submit();
 
-        WebElement item = driver.findElement(By.xpath("//a[@href ='https://otus.ru/']/child::span[contains(@class," +
-                "'EKtkFWMYpwzMKOYr0GYm LQVY1Jpkk8nyJ6HBWKAk')]"));
+        WebElement item = driver.findElement(By.xpath("//h2/a[@href ='https://otus.ru/']/child::span"));
         String text = item.getText();
         assertEquals("Онлайн‑курсы для профессионалов, дистанционное обучение ...", text);
     }
